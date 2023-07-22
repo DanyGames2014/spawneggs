@@ -37,4 +37,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: spawneggs-fabric.jar
-        path: build/libs/spawneggs-\d.\d.\d.jar
+        path: |
+          build/libs/spawneggs-*.jar
+          !build/libs/spawneggs-*-sources.jar
