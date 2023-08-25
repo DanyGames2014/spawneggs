@@ -1,14 +1,19 @@
 package net.danygames2014.spawneggs.events.init;
 
 import net.danygames2014.spawneggs.ConfigHandler;
+import net.danygames2014.spawneggs.Util;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.modificationstation.stationapi.api.client.event.color.item.ItemColorsRegisterEvent;
 import net.modificationstation.stationapi.api.client.event.texture.TextureRegisterEvent;
+import net.modificationstation.stationapi.api.client.render.model.json.JsonUnbakedModel;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.util.Null;
 
 public class TextureListener {
+
+    public static JsonUnbakedModel eggModel = JsonUnbakedModel.deserialize("{\"parent\": \"item/generated\",\"textures\": {\"layer0\": \"spawneggs:item/spawn_egg_inner\",\"layer1\": \"spawneggs:item/spawn_egg_outer\"}}");
 
     @Entrypoint.ModID
     public static final ModID MOD_ID = Null.get();
@@ -20,7 +25,22 @@ public class TextureListener {
         }
 
         for (SpawnEggItem item : ItemListener.spawnEggs){
-            item.setTexture(MOD_ID.id("item/spawn_egg"));
+            item.setTexture(MOD_ID.id("item/spawn_egg_default"));
+        }
+
+
+    }
+
+    @EventListener
+    public void registerSpawnEggColors(ItemColorsRegisterEvent event) {
+        for (SpawnEggItem item : ItemListener.spawnEggs){
+            event.itemColors.register((itemInstance, layer) -> {
+                switch (layer){
+                    default:
+                    case 0: return item.hashCode();
+                    case 1: return Util.hexColorToInt(0x0);
+                }
+            }, item);
         }
     }
 }

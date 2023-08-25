@@ -1,5 +1,6 @@
 package net.danygames2014.spawneggs;
 
+import java.awt.*;
 import java.lang.reflect.Field;
 
 public class Util {
@@ -17,5 +18,10 @@ public class Util {
             }
         }
         return null;
+    }
+
+    public static int hexColorToInt(int hexColor) {
+        Color color = new Color(hexColor);
+        return (((color.getRed() & 255) << 16) | ((color.getGreen() & 255) << 8) | ((color.getBlue() & 255) << 0));
     }
 }
