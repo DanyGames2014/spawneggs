@@ -28,6 +28,9 @@
     ],
     "gcapi": [
       "net.danygames2014.spawneggs.ConfigHandler"
+    ],
+    "bhcreative:event_bus": [
+      "net.danygames2014.spawneggs.events.init.CreativeListener"
     ]
   },
 
@@ -37,5 +40,10 @@
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3"
+  },
+
+  "suggests": {
+    "bhcreative": "*"
   }
+
 }

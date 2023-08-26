@@ -2,7 +2,6 @@ package net.danygames2014.spawneggs.events.init;
 
 import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
-import net.danygames2014.spawneggs.Util;
 import net.danygames2014.spawneggs.item.DevSwordItem;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;

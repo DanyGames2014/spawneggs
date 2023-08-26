@@ -1,7 +1,6 @@
 package net.danygames2014.spawneggs;
 
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Handles the colors for Spawn Eggs
