@@ -1,5 +1,6 @@
 package net.danygames2014.spawneggs.events.init;
 
+import net.danygames2014.spawneggs.ColorizationHandler;
 import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.Util;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
@@ -27,19 +28,14 @@ public class TextureListener {
         for (SpawnEggItem item : ItemListener.spawnEggs){
             item.setTexture(MOD_ID.id("item/spawn_egg_default"));
         }
-
-
     }
 
     @EventListener
     public void registerSpawnEggColors(ItemColorsRegisterEvent event) {
         for (SpawnEggItem item : ItemListener.spawnEggs){
             event.itemColors.register((itemInstance, layer) -> {
-                switch (layer){
-                    default:
-                    case 0: return item.hashCode();
-                    case 1: return Util.hexColorToInt(0x0);
-                }
+                // Im aware this could error if an egg doesnt have colors registered, but since its called per frame checking harms the performance
+                return ColorizationHandler.eggColor.get(item.spawnedEntity)[layer];
             }, item);
         }
     }

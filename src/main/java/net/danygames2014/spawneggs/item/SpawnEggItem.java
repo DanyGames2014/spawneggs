@@ -1,6 +1,8 @@
 package net.danygames2014.spawneggs.item;
 
+import net.danygames2014.spawneggs.ColorizationHandler;
 import net.danygames2014.spawneggs.ConfigHandler;
+import net.danygames2014.spawneggs.LocalizationHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
 import net.danygames2014.spawneggs.events.init.ItemListener;
 import net.minecraft.entity.EntityBase;
@@ -14,46 +16,46 @@ import net.modificationstation.stationapi.api.util.Colours;
 
 public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvider {
 
+    // Registry name of the spawned entity
     public String spawnedEntity;
 
-    public SpawnEggItem(String spawnedEntity) {
+    /**
+     * Creates a new Spawn Egg Item using the supplied colors
+     * @param spawnedEntity Registry Name of the spawned entity
+     * @param outerLayerColorHex Outer Layer color in Hex
+     * @param innerLayerColorHex Inner Layer color in Hex
+     * @param innerLayerOverlayColorHex Inner Overlay Layer color in Hex
+     */
+    public SpawnEggItem(String spawnedEntity, int outerLayerColorHex, int innerLayerColorHex, int innerLayerOverlayColorHex) {
+        this(spawnedEntity);
+
+        ColorizationHandler.registerSpawnEggColorHex(spawnedEntity, outerLayerColorHex, innerLayerColorHex, innerLayerOverlayColorHex);
+    }
+
+    /**
+     * Creates a new Spawn Egg Item with the default color
+     * @param spawnedEntity Registry Name of the spawned entity
+     */
+    public SpawnEggItem(String spawnedEntity, boolean tryUsePredefinedColors){
+        this(spawnedEntity);
+
+        if(tryUsePredefinedColors){
+            if(ColorizationHandler.defaultEggColors.containsKey(spawnedEntity)){
+                int[] colors = ColorizationHandler.defaultEggColors.get(spawnedEntity);
+                ColorizationHandler.registerSpawnEggColorHex(spawnedEntity,colors[0],colors[1],colors[2]);
+                return;
+            }
+        }
+        ColorizationHandler.registerSpawnEggColorInt(spawnedEntity,ColorizationHandler.BASE_COLOR,ColorizationHandler.BASE_COLOR,ColorizationHandler.BASE_COLOR);
+    }
+
+    public SpawnEggItem(String spawnedEntity){
         super(SpawnEggs.MOD_ID.id(spawnedEntity.toLowerCase()+"_spawn_egg"));
         this.spawnedEntity = spawnedEntity;
 
-        //System.out.println(ItemListener.translations.getProperty("item.spawneggs:spawn_egg.name")); // %s Spawn Egg
-        //System.out.println(ItemListener.translations.getProperty("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")); // Zombie
+        LocalizationHandler.registerSpawnEggLocalization(spawnedEntity);
 
-        if(ItemListener.translations.containsKey("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")){
-            ItemListener.translations.put(
-                    // KEY
-                    "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
-
-                    // VALUE
-                    String.format(
-                            // Generic Spawn Egg Name
-                            ItemListener.translations.getProperty("item.spawneggs:spawn_egg.name"),
-                            // Entity Name
-                            ItemListener.translations.getProperty("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")
-                    )
-            );
-        }else{
-            if(ConfigHandler.config.attemptLocalization){
-                ItemListener.translations.put(
-                        // KEY
-                        "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
-
-                        // VALUE
-                        String.format(
-                                // Generic Spawn Egg Name
-                                ItemListener.translations.getProperty("item.spawneggs:spawn_egg.name"),
-                                // Entity Name
-                                spawnedEntity
-                        )
-                );
-            }
-        }
-
-        setTranslationKey(ItemListener.MOD_ID, spawnedEntity.toLowerCase() + "_spawn_egg");
+        setTranslationKey(SpawnEggs.MOD_ID, spawnedEntity.toLowerCase() + "_spawn_egg");
     }
 
     @Override

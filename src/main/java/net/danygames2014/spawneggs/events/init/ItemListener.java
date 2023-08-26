@@ -8,7 +8,6 @@ import net.danygames2014.spawneggs.item.SpawnEggItem;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.mine_diver.unsafeevents.listener.ListenerPriority;
-import net.minecraft.client.resource.language.TranslationStorage;
 import net.minecraft.item.ItemBase;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
@@ -18,17 +17,12 @@ import net.modificationstation.stationapi.api.util.Null;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 public class ItemListener {
 
     // Items
     public static ItemBase devSword;
     public static ArrayList<SpawnEggItem> spawnEggs = new ArrayList<>();
-
-    // Translation Reflection Shenanigans
-    public static TranslationStorage translationStorage;
-    public static Properties translations;
 
     // Entity Registry
     public static List<String> entityRegistry;
@@ -38,24 +32,26 @@ public class ItemListener {
 
     @EventListener(priority = ListenerPriority.LOWEST)
     public void registerItems(ItemRegistryEvent event) throws IllegalAccessException {
-        translationStorage = TranslationStorage.getInstance();
-
-        translations = (Properties) Util.getField(TranslationStorage.class, new String[]{"translations","field_1174","field_1364"}).get(translationStorage);
-
+        // Registers the Dev Sword if allowed in configy
         if(ConfigHandler.config.allowDevSword){
             devSword = new DevSwordItem(MOD_ID.id("dev_sword")).setTranslationKey(MOD_ID, "dev_sword");
         }
 
+        // Use Mixin to access the list of registered entities
         entityRegistry = EntityRegistryAccessor.getEntities().values().stream().sorted().toList();
 
+        // Fetches the entity blacklist from config
         List<String> entityBlacklist = Arrays.stream(ConfigHandler.config.blacklistedEntities).toList();
 
+        // Register Spawn Eggs
         for (String item : entityRegistry){
-            //System.out.println(item);
+            // Check if the entity is present on blacklist
             if(!entityBlacklist.contains(item)){
+                // If present register the Spawn Egg
                 SpawnEggs.LOGGER.info("Adding Spawn Egg for " + item);
-                spawnEggs.add(new SpawnEggItem(item));
+                spawnEggs.add(new SpawnEggItem(item, true));
             }else{
+                // If not present do not register the spawn egg
                 SpawnEggs.LOGGER.info("Entity " + item + " found on blacklist, not adding!");
             }
         }
