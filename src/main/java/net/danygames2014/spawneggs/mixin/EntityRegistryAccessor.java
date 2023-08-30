@@ -18,5 +18,10 @@ import java.util.Map;
         static Map<Class<? extends EntityBase>, String> getEntities() {
             return Util.assertMixin();
         }
+
+        @Accessor("STRING_ID_TO_CLASS")
+        static Map<String, Class<? extends EntityBase>> getStringToIdMap() {
+            return Util.assertMixin();
+        }
     }
 

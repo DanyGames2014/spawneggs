@@ -4,12 +4,16 @@ import net.danygames2014.spawneggs.ColorizationHandler;
 import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.LocalizationHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
-import net.danygames2014.spawneggs.events.init.ItemListener;
+import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
+import net.minecraft.block.MobSpawner;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.EntityRegistry;
+import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.level.Level;
+import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 import net.modificationstation.stationapi.api.util.Colours;
@@ -60,6 +64,19 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
 
     @Override
     public boolean useOnTile(ItemInstance item, PlayerBase player, Level world, int x, int y, int z, int side) {
+        Class<? extends EntityBase> entityClass = EntityRegistryAccessor.getStringToIdMap().get(this.spawnedEntity);
+        if(!Living.class.isAssignableFrom(entityClass)){
+            SpawnEggs.LOGGER.debug("This entity cannot be set as a spawner entity due to it not being a Living Entity");
+            return true;
+        }
+
+        BlockState blockState = world.getBlockState(x,y,z);
+        if(blockState.getBlock() instanceof MobSpawner){
+            TileEntityMobSpawner spawner = (TileEntityMobSpawner) world.getTileEntity(x,y,z);
+            spawner.setEntityId(this.spawnedEntity);
+            return true;
+        }
+
         return spawnEntity(item, player, world, x, y, z, side);
     }
 
