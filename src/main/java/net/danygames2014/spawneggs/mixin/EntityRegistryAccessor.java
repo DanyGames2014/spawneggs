@@ -1,6 +1,6 @@
 package net.danygames2014.spawneggs.mixin;
 
-import net.minecraft.entity.EntityBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
 import net.modificationstation.stationapi.api.util.Util;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,13 +14,13 @@ import java.util.Map;
      */
     @Mixin(EntityRegistry.class)
     public interface EntityRegistryAccessor {
-        @Accessor("CLASS_TO_STRING_ID")
-        static Map<Class<? extends EntityBase>, String> getEntities() {
+        @Accessor("classToId")
+        static Map<Class<? extends Entity>, String> getEntities() {
             return Util.assertMixin();
         }
 
-        @Accessor("STRING_ID_TO_CLASS")
-        static Map<String, Class<? extends EntityBase>> getStringToIdMap() {
+        @Accessor("idToClass")
+        static Map<String, Class<? extends Entity>> getStringToIdMap() {
             return Util.assertMixin();
         }
     }

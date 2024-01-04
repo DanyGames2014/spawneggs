@@ -1,5 +1,6 @@
 package net.danygames2014.spawneggs;
 
+import net.danygames2014.spawneggs.mixin.TranslationStorageAccessor;
 import net.minecraft.client.resource.language.TranslationStorage;
 
 import java.util.Properties;
@@ -17,11 +18,7 @@ public class LocalizationHandler {
      * Tries to use reflection to access the translation list from Translation Storage, if an exception is thrown, makes a new empty list
      */
     static {
-        try {
-            translations = (Properties) Util.getField(TranslationStorage.class, new String[]{"translations","field_1174","field_1364"}).get(translationStorage);
-        } catch (IllegalAccessException e) {
-            translations = new Properties();
-        }
+        translations = ((TranslationStorageAccessor) translationStorage).getTranslations();
     }
 
     /**
@@ -55,19 +52,21 @@ public class LocalizationHandler {
             // Check if localization should be attempted
             if(ConfigHandler.config.attemptLocalization){
 
-                translations.put(
-                        // [Key] Translation Key
-                        "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                try {
+                    translations.put(
+                            // [Key] Translation Key
+                            "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
 
-                        // [Value] Translated Name
-                        // Replaces the %s in spawn egg localization with the localized entity name
-                        String.format(
-                                // Generic Spawn Egg Name ( Example : %s Spawn Egg )
-                                translations.getProperty("item.spawneggs:spawn_egg.name"),
-                                // Entity Name ( Example: Zombie )
-                                spawnedEntity
-                        )
-                );
+                            // [Value] Translated Name
+                            // Replaces the %s in spawn egg localization with the localized entity name
+                            String.format(
+                                    // Generic Spawn Egg Name ( Example : %s Spawn Egg )
+                                    translations.getProperty("item.spawneggs:spawn_egg.name"),
+                                    // Entity Name ( Example: Zombie )
+                                    spawnedEntity
+                            )
+                    );
+                }catch (Exception ignored){}
             }
         }
     }

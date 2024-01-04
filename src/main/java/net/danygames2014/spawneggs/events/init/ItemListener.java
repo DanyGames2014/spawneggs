@@ -7,10 +7,10 @@ import net.danygames2014.spawneggs.item.SpawnEggItem;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.mine_diver.unsafeevents.listener.ListenerPriority;
-import net.minecraft.item.ItemBase;
+import net.minecraft.item.Item;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
-import net.modificationstation.stationapi.api.registry.ModID;
+import net.modificationstation.stationapi.api.util.Namespace;
 import net.modificationstation.stationapi.api.util.Null;
 
 import java.util.ArrayList;
@@ -20,14 +20,14 @@ import java.util.List;
 public class ItemListener {
 
     // Items
-    public static ItemBase devSword;
+    public static Item devSword;
     public static ArrayList<SpawnEggItem> spawnEggs = new ArrayList<>();
 
     // Entity Registry
     public static List<String> entityRegistry;
 
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
+    @Entrypoint.Namespace
+    public static final Namespace MOD_ID = Null.get();
 
     @EventListener(priority = ListenerPriority.LOWEST)
     public void registerItems(ItemRegistryEvent event) throws IllegalAccessException {

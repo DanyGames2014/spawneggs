@@ -1,44 +1,44 @@
 package net.danygames2014.spawneggs.item;
 
-import net.minecraft.entity.EntityBase;
-import net.minecraft.entity.Item;
-import net.minecraft.entity.Living;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.item.tool.ToolMaterial;
-import net.minecraft.level.Level;
-import net.modificationstation.stationapi.api.registry.Identifier;
-import net.modificationstation.stationapi.api.template.item.tool.TemplateSword;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.world.World;
+import net.modificationstation.stationapi.api.template.item.TemplateSwordItem;
+import net.modificationstation.stationapi.api.util.Identifier;
 
-public class DevSwordItem extends TemplateSword {
+public class DevSwordItem extends TemplateSwordItem {
     public DevSwordItem(Identifier identifier) {
-        super(identifier, ToolMaterial.field_1691);
+        super(identifier, ToolMaterial.DIAMOND);
     }
 
     @Override
-    public boolean postHit(ItemInstance arg, Living arg2, Living arg3) {
+    public boolean postHit(ItemStack arg, LivingEntity arg2, LivingEntity arg3) {
         return true;
     }
 
     @Override
-    public boolean postMine(ItemInstance arg, int i, int j, int k, int l, Living arg2) {
+    public boolean postMine(ItemStack arg, int i, int j, int k, int l, LivingEntity arg2) {
         return true;
     }
 
     @Override
-    public int getAttack(EntityBase arg) {
+    public int getDamageOnEntity(Entity entity) {
         return 9999;
     }
 
     @Override
-    public ItemInstance use(ItemInstance item, Level world, PlayerBase player) {
-        if(world.isServerSide){
+    public ItemStack use(ItemStack item, World world, PlayerEntity player) {
+        if(world.isRemote){
             return item;
         }
 
-        for (int i = 0; i < world.entities.size(); i++){
-            EntityBase entity = (EntityBase) world.entities.get(i);
-            if(!(entity instanceof PlayerBase) && !(!player.method_1373() && entity instanceof Item)){
+        for (int i = 0; i < world.field_198.size(); i++){
+            Entity entity = (Entity) world.field_198.get(i);
+            if(!(entity instanceof PlayerEntity) && !(!player.method_1373() && entity instanceof ItemEntity)){
                 entity.damage(player,9000);
             }
         }

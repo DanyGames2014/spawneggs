@@ -5,20 +5,20 @@ import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.LocalizationHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
-import net.minecraft.block.MobSpawner;
-import net.minecraft.entity.EntityBase;
+import net.minecraft.block.SpawnerBlock;
+import net.minecraft.class_104;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
-import net.minecraft.entity.Living;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.level.Level;
-import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
-import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
-import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
-import net.modificationstation.stationapi.api.util.Colours;
+import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
+import net.modificationstation.stationapi.api.template.item.TemplateItem;
+import net.modificationstation.stationapi.api.util.Formatting;
 
-public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvider {
+public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider {
 
     // Registry name of the spawned entity
     public String spawnedEntity;
@@ -63,17 +63,17 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
     }
 
     @Override
-    public boolean useOnTile(ItemInstance item, PlayerBase player, Level world, int x, int y, int z, int side) {
-        Class<? extends EntityBase> entityClass = EntityRegistryAccessor.getStringToIdMap().get(this.spawnedEntity);
-        if(!Living.class.isAssignableFrom(entityClass)){
+    public boolean useOnBlock(ItemStack item, PlayerEntity player, World world, int x, int y, int z, int side) {
+        Class<? extends Entity> entityClass = EntityRegistryAccessor.getStringToIdMap().get(this.spawnedEntity);
+        if(!LivingEntity.class.isAssignableFrom(entityClass)){
             SpawnEggs.LOGGER.debug("This entity cannot be set as a spawner entity due to it not being a Living Entity");
             return true;
         }
 
         BlockState blockState = world.getBlockState(x,y,z);
-        if(blockState.getBlock() instanceof MobSpawner){
-            TileEntityMobSpawner spawner = (TileEntityMobSpawner) world.getTileEntity(x,y,z);
-            spawner.setEntityId(this.spawnedEntity);
+        if(blockState.getBlock() instanceof SpawnerBlock){
+            class_104 spawner = (class_104) world.method_1777(x,y,z);
+            spawner.method_2035(this.spawnedEntity);
             return true;
         }
 
@@ -81,7 +81,7 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
     }
 
     @Override
-    public ItemInstance use(ItemInstance item, Level world, PlayerBase player) {
+    public ItemStack use(ItemStack item, World world, PlayerEntity player) {
         if(ConfigHandler.config.allowSpawnInAir){
             spawnEntity(item, player, world, player.x, player.y, player.z, 6);
         }
@@ -90,7 +90,7 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
 
 
     @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
+    public String[] getTooltip(ItemStack itemInstance, String originalTooltip) {
         return new String[]{
                 originalTooltip,
                 "Registry Name : " + spawnedEntity
@@ -99,19 +99,19 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
 
 
     // Spawns the entity defined in spawnedEntity
-    private boolean spawnEntity(ItemInstance item, PlayerBase player, Level level, double x, double y, double z, int side){
-        if(level.isServerSide){
+    private boolean spawnEntity(ItemStack item, PlayerEntity player, World level, double x, double y, double z, int side){
+        if(level.isRemote){
             return true;
         }
 
         try {
 
             // Create Entity
-            EntityBase entity = EntityRegistry.create(spawnedEntity, level);
+            Entity entity = EntityRegistry.create(spawnedEntity, level);
 
             // Determine coordinates according to block side
             switch (side){
-                case 0: y-=entity.height; break; // BOTTOM (Y--)
+                case 0: y-=entity.spacingY; break; // BOTTOM (Y--)
                 case 1: y++; x+=0.5; z+=0.5; break; // TOP (Y++)
                 case 2: z-=0.5; x+=0.5; break; // SIDE (Z--)
                 case 3: z+=1.5; x+=0.5; break; // SIDE (Z++)
@@ -121,17 +121,17 @@ public class SpawnEggItem extends TemplateItemBase implements CustomTooltipProvi
             }
 
             // Set the Entity position
-            entity.setPosition(x,y,z);
+            entity.method_1340(x,y,z);
 
             // Spawn the Entity
-            level.spawnEntity(entity);
+            level.method_210(entity);
 
         } catch (Exception e){
             SpawnEggs.LOGGER.error("Error when spawning Entity! \n" + e.getMessage());
-            player.sendMessage(Colours.RED + "Error when spawning the entity!");
+            player.method_490(Formatting.RED + "Error when spawning the entity!");
             if(ConfigHandler.config.removeInvalidSpawnEggs){
                 item.count = 0;
-                player.sendMessage(Colours.RED + "Removed invalid Spawn Egg! You can change this in config");
+                player.method_490(Formatting.RED + "Removed invalid Spawn Egg! You can change this in config");
             }
             return false;
         }
