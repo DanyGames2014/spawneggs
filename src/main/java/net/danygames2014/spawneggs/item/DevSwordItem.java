@@ -26,7 +26,7 @@ public class DevSwordItem extends TemplateSwordItem {
     }
 
     @Override
-    public int getDamageOnEntity(Entity entity) {
+    public int getAttackDamage(Entity attackedEntity) {
         return 9999;
     }
 
