@@ -2,7 +2,6 @@ package net.danygames2014.spawneggs.item;
 
 import net.danygames2014.spawneggs.ColorizationHandler;
 import net.danygames2014.spawneggs.ConfigHandler;
-import net.danygames2014.spawneggs.LocalizationHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.minecraft.block.SpawnerBlock;
@@ -56,8 +55,6 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
     public SpawnEggItem(String spawnedEntity){
         super(SpawnEggs.MOD_ID.id(spawnedEntity.toLowerCase()+"_spawn_egg"));
         this.spawnedEntity = spawnedEntity;
-
-        LocalizationHandler.registerSpawnEggLocalization(spawnedEntity);
 
         setTranslationKey(SpawnEggs.MOD_ID, spawnedEntity.toLowerCase() + "_spawn_egg");
     }

@@ -13,9 +13,9 @@ public class CreativeListener {
 
     @EventListener
     public void onTabInit(TabRegistryEvent event){
-        spawnEggsTab = new SimpleTab(SpawnEggs.MOD_ID.id("spawneggs"), ItemListener.spawnEggs.get(0));
+        spawnEggsTab = new SimpleTab(SpawnEggs.MOD_ID.id("spawneggs"), SpawnEggs.spawnEggs.get(0));
         event.register(spawnEggsTab);
-        for (SpawnEggItem item : ItemListener.spawnEggs){
+        for (SpawnEggItem item : SpawnEggs.spawnEggs){
             spawnEggsTab.addItem(new ItemStack(item, 1));
         }
     }

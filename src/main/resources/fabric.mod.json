@@ -18,7 +18,6 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "net.danygames2014.spawneggs.events.init.ItemListener",
       "net.danygames2014.spawneggs.SpawnEggs"
     ],
     "stationapi:event_bus_client": [

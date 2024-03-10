@@ -52,6 +52,9 @@ public class LocalizationHandler {
             // Check if localization should be attempted
             if(ConfigHandler.config.attemptLocalization){
 
+                System.out.println(translationStorage.get("item.spawneggs:spawn_egg.name"));
+                System.out.println("aaaa");
+
                 try {
                     translations.put(
                             // [Key] Translation Key
@@ -61,12 +64,14 @@ public class LocalizationHandler {
                             // Replaces the %s in spawn egg localization with the localized entity name
                             String.format(
                                     // Generic Spawn Egg Name ( Example : %s Spawn Egg )
-                                    translations.getProperty("item.spawneggs:spawn_egg.name"),
+                                    translations.getProperty("item.spawneggs:spawn_egg.name", "%s Spawn Egg"),
                                     // Entity Name ( Example: Zombie )
                                     spawnedEntity
                             )
                     );
-                }catch (Exception ignored){}
+                }catch (NumberFormatException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
@@ -80,7 +85,7 @@ public class LocalizationHandler {
     public static boolean registerSpawnEggLocalization (String spawnedEntity, String spawnedEntityLocalization){
         // Check if translation doesnt already exist
         if(translations.containsKey("item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name")){
-            //return false;
+            return false;
         }
 
         translations.put(
