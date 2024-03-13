@@ -23,9 +23,10 @@ public class LocalizationHandler {
 
     /**
      * Generates a localization for a spawn egg using the lang file for the specified entity and register the localization into the TranslationStorage
+     *
      * @param spawnedEntity Registry name of the entity to localize a spawnegg for
      */
-    public static void registerSpawnEggLocalization (String spawnedEntity) {
+    public static void registerSpawnEggLocalization(String spawnedEntity) {
         // By default the localization for spawn egg is "%s Spawn Egg" and each entity can be localized separately,
         // this function forms the localization by combining the spawn egg localization with the individual mob
         // localization as they're registered, if it cannot find a localization it will check whetever it should
@@ -33,7 +34,7 @@ public class LocalizationHandler {
 
         /// Check if the mod lang file contains a localization for the mob
         // If localization is present, it will be used
-        if(translations.containsKey("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")){
+        if (translations.containsKey("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")) {
             translations.put(
                     // [Key] Translation Key
                     "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
@@ -47,14 +48,10 @@ public class LocalizationHandler {
                             translations.getProperty("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")
                     )
             );
-        // If localization is not present, the config will be checked to determine whetever localization should be attempted from the registry name
-        }else{
+            // If localization is not present, the config will be checked to determine whetever localization should be attempted from the registry name
+        } else {
             // Check if localization should be attempted
-            if(ConfigHandler.config.attemptLocalization){
-
-                System.out.println(translationStorage.get("item.spawneggs:spawn_egg.name"));
-                System.out.println("aaaa");
-
+            if (ConfigHandler.config.attemptLocalization) {
                 try {
                     translations.put(
                             // [Key] Translation Key
@@ -69,7 +66,7 @@ public class LocalizationHandler {
                                     spawnedEntity
                             )
                     );
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -78,13 +75,14 @@ public class LocalizationHandler {
 
     /**
      * Generates a localization for a spawn egg using supplied localization for the specified entity and register the localization into the TranslationStorage
-     * @param spawnedEntity Registry name of the entity to localize a spawnegg for
+     *
+     * @param spawnedEntity             Registry name of the entity to localize a spawnegg for
      * @param spawnedEntityLocalization Localized name to show inthe spawn egg name
      * @return If the action was succesfull
      */
-    public static boolean registerSpawnEggLocalization (String spawnedEntity, String spawnedEntityLocalization){
+    public static boolean registerSpawnEggLocalization(String spawnedEntity, String spawnedEntityLocalization) {
         // Check if translation doesnt already exist
-        if(translations.containsKey("item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name")){
+        if (translations.containsKey("item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name")) {
             return false;
         }
 
