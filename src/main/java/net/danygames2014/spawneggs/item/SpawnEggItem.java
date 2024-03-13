@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
+import net.modificationstation.stationapi.api.client.texture.TextureHelper;
 import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Formatting;
 
@@ -52,7 +53,7 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
         ColorizationHandler.registerSpawnEggColorInt(spawnedEntity,ColorizationHandler.BASE_COLOR,ColorizationHandler.BASE_COLOR,ColorizationHandler.BASE_COLOR);
     }
 
-    public SpawnEggItem(String spawnedEntity){
+    public SpawnEggItem(String spawnedEntity) {
         super(SpawnEggs.MOD_ID.id(spawnedEntity.toLowerCase()+"_spawn_egg"));
         this.spawnedEntity = spawnedEntity;
 
