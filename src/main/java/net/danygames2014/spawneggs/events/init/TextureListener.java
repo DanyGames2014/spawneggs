@@ -81,9 +81,9 @@ public class TextureListener {
                     }
                 }
 
-                System.out.println("\n" + item.spawnedEntity);
-                System.out.println("Lightest : " + lightestColor);
-                System.out.println("Darkest : " + darkestColor);
+//                System.out.println("\n" + item.spawnedEntity);
+//                System.out.println("Lightest : " + lightestColor);
+//                System.out.println("Darkest : " + darkestColor);
                 // End of method extract
 
                 //ColorizationHandler.registerSpawnEggColorInt(item.spawnedEntity, Math.abs(lightestColor.getRGB()), Math.abs(darkestColor.getRGB()), Math.abs(lightestColor.getRGB()));
