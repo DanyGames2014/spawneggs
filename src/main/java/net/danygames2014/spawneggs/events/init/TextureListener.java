@@ -33,7 +33,9 @@ public class TextureListener {
         if (ConfigHandler.config.allowDevSword) {
             SpawnEggs.devSword.setTexture(MOD_ID.id("item/dev_sword"));
         }
+    }
 
+    public void colorFromTextureExperiment(){
         // TODO : Fix This
         for (SpawnEggItem item : SpawnEggs.spawnEggs) {
             Entity entity = EntityRegistry.create(item.spawnedEntity, null);
