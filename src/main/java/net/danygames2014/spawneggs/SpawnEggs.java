@@ -1,14 +1,19 @@
 package net.danygames2014.spawneggs;
 
+import net.danygames2014.spawneggs.api.event.SpawnEggColorizationEvent;
 import net.danygames2014.spawneggs.item.DevSwordItem;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.mine_diver.unsafeevents.listener.ListenerPriority;
 import net.minecraft.item.Item;
+import net.modificationstation.stationapi.api.StationAPI;
+import net.modificationstation.stationapi.api.event.mod.InitEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.event.resource.language.TranslationInvalidationEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
+import net.modificationstation.stationapi.api.mod.entrypoint.EntrypointManager;
 import net.modificationstation.stationapi.api.util.Namespace;
 import net.modificationstation.stationapi.api.util.Null;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class SpawnEggs {
     @Entrypoint.Namespace
     public static final Namespace MOD_ID = Null.get();
@@ -32,7 +38,7 @@ public class SpawnEggs {
     public static List<String> entityRegistry;
 
     @EventListener(priority = ListenerPriority.LOWEST)
-    public void registerItems(ItemRegistryEvent event) throws IllegalAccessException {
+    public void registerItems(ItemRegistryEvent event) {
         // Registers the Dev Sword if allowed in configy
         if(ConfigHandler.config.allowDevSword){
             devSword = new DevSwordItem(MOD_ID.id("dev_sword")).setTranslationKey(MOD_ID, "dev_sword");
@@ -56,14 +62,22 @@ public class SpawnEggs {
                 LOGGER.info("Entity " + item + " found on blacklist, not adding!");
             }
         }
+
+        // Call the Spawn Egg Colorization Event
+        StationAPI.EVENT_BUS.post(new SpawnEggColorizationEvent());
     }
 
     @EventListener
     public void localizeSpawnEggs(TranslationInvalidationEvent event){
         for(var egg : spawnEggs){
-            LOGGER.info("Localizing " + egg.spawnedEntity + " Spawn Egg");
+//            LOGGER.info("Localizing " + egg.spawnedEntity + " Spawn Egg");
             LocalizationHandler.registerSpawnEggLocalization(egg.spawnedEntity);
         }
+    }
+
+    @EventListener(priority = ListenerPriority.HIGHEST)
+    public void preInit(InitEvent event){
+        FabricLoader.getInstance().getEntrypointContainers("spawneggs:event_bus", Object.class).forEach(EntrypointManager::setup);
     }
 
 
