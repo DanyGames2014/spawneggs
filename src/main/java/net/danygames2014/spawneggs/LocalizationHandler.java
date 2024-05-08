@@ -34,18 +34,18 @@ public class LocalizationHandler {
 
         /// Check if the mod lang file contains a localization for the mob
         // If localization is present, it will be used
-        if (translations.containsKey("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")) {
+        if (translations.containsKey("entity.spawneggs." + spawnedEntity.toLowerCase() + ".name")) {
             translations.put(
                     // [Key] Translation Key
-                    "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                    "item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name",
 
                     // [Value] Translated Name
                     // Replaces the %s in spawn egg localization with the localized entity name
                     String.format(
                             // Generic Spawn Egg Name ( Example : %s Spawn Egg )
-                            translations.getProperty("item.spawneggs:spawn_egg.name"),
+                            translations.getProperty("item.spawneggs.spawn_egg.name"),
                             // Entity Name ( Example: Zombie )
-                            translations.getProperty("entity.spawneggs:" + spawnedEntity.toLowerCase() + ".name")
+                            translations.getProperty("entity.spawneggs." + spawnedEntity.toLowerCase() + ".name")
                     )
             );
             // If localization is not present, the config will be checked to determine whetever localization should be attempted from the registry name
@@ -55,13 +55,13 @@ public class LocalizationHandler {
                 try {
                     translations.put(
                             // [Key] Translation Key
-                            "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                            "item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name",
 
                             // [Value] Translated Name
                             // Replaces the %s in spawn egg localization with the localized entity name
                             String.format(
                                     // Generic Spawn Egg Name ( Example : %s Spawn Egg )
-                                    translations.getProperty("item.spawneggs:spawn_egg.name", "%s Spawn Egg"),
+                                    translations.getProperty("item.spawneggs.spawn_egg.name", "%s Spawn Egg"),
                                     // Entity Name ( Example: Zombie )
                                     spawnedEntity
                             )
@@ -82,19 +82,19 @@ public class LocalizationHandler {
      */
     public static boolean registerSpawnEggLocalization(String spawnedEntity, String spawnedEntityLocalization) {
         // Check if translation doesnt already exist
-        if (translations.containsKey("item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name")) {
+        if (translations.containsKey("item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name")) {
             return false;
         }
 
         translations.put(
                 // [Key] Translation Key
-                "item.spawneggs:" + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                "item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name",
 
                 // [Value] Translated Name
                 // Replaces the %s in spawn egg localization with the localized entity name
                 String.format(
                         // Generic Spawn Egg Name ( Example : %s Spawn Egg )
-                        translations.getProperty("item.spawneggs:spawn_egg.name"),
+                        translations.getProperty("item.spawneggs.spawn_egg.name"),
                         // Entity Name ( Example: Zombie )
                         spawnedEntityLocalization
                 )

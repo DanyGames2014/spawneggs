@@ -1,8 +1,8 @@
-tab.spawneggs.name=Spawn Eggs
+tab.spawneggs.spawneggs.name=Spawn Eggs
 
-item.dev_sword.name=Milos
-item.spawn_egg.name=%s Spawn Egg
+item.spawneggs.dev_sword.name=Milos
+item.spawneggs.spawn_egg.name=%s Spawn Egg
 
-entity.zombie.name=Zombie
-entity.pigzombie.name=Zombie Pigman
-entity.primedtnt.name=Primed TNT
+entity.spawneggs.zombie.name=Zombie
+entity.spawneggs.pigzombie.name=Zombie Pigman
+entity.spawneggs.primedtnt.name=Primed TNT
