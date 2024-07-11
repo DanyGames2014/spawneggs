@@ -5,7 +5,7 @@ import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
 import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.minecraft.block.SpawnerBlock;
-import net.minecraft.class_104;
+import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
-import net.modificationstation.stationapi.api.client.texture.TextureHelper;
 import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Formatting;
 
@@ -63,15 +62,16 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
     @Override
     public boolean useOnBlock(ItemStack item, PlayerEntity player, World world, int x, int y, int z, int side) {
         Class<? extends Entity> entityClass = EntityRegistryAccessor.getStringToIdMap().get(this.spawnedEntity);
-        if(!LivingEntity.class.isAssignableFrom(entityClass)){
-            SpawnEggs.LOGGER.debug("This entity cannot be set as a spawner entity due to it not being a Living Entity");
-            return true;
-        }
 
         BlockState blockState = world.getBlockState(x,y,z);
         if(blockState.getBlock() instanceof SpawnerBlock){
-            class_104 spawner = (class_104) world.method_1777(x,y,z);
-            spawner.method_2035(this.spawnedEntity);
+            if(!LivingEntity.class.isAssignableFrom(entityClass)){
+                player.method_490("This entity cannot be set as a spawner entity due to it not being a Living Entity");
+                SpawnEggs.LOGGER.info("This entity cannot be set as a spawner entity due to it not being a Living Entity");
+                return true;
+            }
+            MobSpawnerBlockEntity spawner = (MobSpawnerBlockEntity) world.getBlockEntity(x,y,z);
+            spawner.setSpawnedEntityId(this.spawnedEntity);
             return true;
         }
 
@@ -103,14 +103,15 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
         }
 
         try {
-
             // Create Entity
             Entity entity = EntityRegistry.create(spawnedEntity, level);
 
+            System.out.println(entity.height);
+
             // Determine coordinates according to block side
             switch (side){
-                case 0: y-=entity.spacingY; break; // BOTTOM (Y--)
-                case 1: y++; x+=0.5; z+=0.5; break; // TOP (Y++)
+                case 0: y-=entity.height; break; // BOTTOM (Y--)
+                case 1: y+=Math.max(entity.height, 1.0F); x+=0.5; z+=0.5; break; // TOP (Y++)
                 case 2: z-=0.5; x+=0.5; break; // SIDE (Z--)
                 case 3: z+=1.5; x+=0.5; break; // SIDE (Z++)
                 case 4: x-=0.5; z+=0.5; break; // SIDE (X--)
@@ -119,10 +120,10 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             }
 
             // Set the Entity position
-            entity.method_1340(x,y,z);
+            entity.setPos(x,y,z);
 
             // Spawn the Entity
-            level.method_210(entity);
+            level.spawnEntity(entity);
 
         } catch (Exception e){
             SpawnEggs.LOGGER.error("Error when spawning Entity! \n" + e.getMessage());

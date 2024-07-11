@@ -1,5 +1,6 @@
 plugins {
-	id 'babric-loom' version '1.4.2'
+	id 'fabric-loom' version '1.6.2'
+	id 'babric-loom-extension' version '1.6.9'
 	id 'maven-publish'
 }
 
@@ -11,7 +12,9 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
-	gluedMinecraftJar()
+	mixin {
+		useLegacyMixinAp = true
+	}
 	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
 	intermediaryUrl.set("https://maven.glass-launcher.net/babric/babric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
 }
@@ -128,17 +131,20 @@ jar {
 
 // configure the maven publication
 publishing {
+	repositories {
+		mavenLocal()
+		maven {
+			url = "https://maven.glass-launcher.net/releases"
+			credentials {
+				username "${project.calmilamsy_secret_publishing_cave_username}"
+				password "${project.calmilamsy_secret_publishing_cave_password}"
+			}
+		}
+	}
+
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
 		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
 	}
 }

@@ -40,7 +40,7 @@ public class TextureListener {
         for (SpawnEggItem item : SpawnEggs.spawnEggs) {
             Entity entity = EntityRegistry.create(item.spawnedEntity, null);
             String textureId;
-            if ((textureId = entity.method_1314()) != null) {
+            if ((textureId = entity.getTexture()) != null) {
                 BufferedImage texture = TextureHelper.getTexture(textureId);
 
                 // TODO : Extract into a Util method with BufferedImage as an input

@@ -36,9 +36,9 @@ public class DevSwordItem extends TemplateSwordItem {
             return item;
         }
 
-        for (int i = 0; i < world.field_198.size(); i++){
-            Entity entity = (Entity) world.field_198.get(i);
-            if(!(entity instanceof PlayerEntity) && !(!player.method_1373() && entity instanceof ItemEntity)){
+        for (int i = 0; i < world.entities.size(); i++){
+            Entity entity = (Entity) world.entities.get(i);
+            if(!(entity instanceof PlayerEntity) && !(!player.isSneaking() && entity instanceof ItemEntity)){
                 entity.damage(player,9000);
             }
         }
