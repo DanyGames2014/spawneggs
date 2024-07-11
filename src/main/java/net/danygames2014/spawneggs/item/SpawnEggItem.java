@@ -111,7 +111,7 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             // Determine coordinates according to block side
             switch (side){
                 case 0: y-=entity.height; break; // BOTTOM (Y--)
-                case 1: y+=Math.max(entity.height, 1.0F); x+=0.5; z+=0.5; break; // TOP (Y++)
+                case 1: y+= (Math.max(entity.height, 0.5F) + 1F); x+=0.5; z+=0.5; break; // TOP (Y++)
                 case 2: z-=0.5; x+=0.5; break; // SIDE (Z--)
                 case 3: z+=1.5; x+=0.5; break; // SIDE (Z++)
                 case 4: x-=0.5; z+=0.5; break; // SIDE (X--)
