@@ -106,8 +106,6 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             // Create Entity
             Entity entity = EntityRegistry.create(spawnedEntity, level);
 
-            System.out.println(entity.height);
-
             // Determine coordinates according to block side
             switch (side){
                 case 0: y-=entity.height; break; // BOTTOM (Y--)
