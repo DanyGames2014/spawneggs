@@ -1,6 +1,9 @@
+//file:noinspection GroovyAssignabilityCheck
+//file:noinspection GroovyUnusedAssignment
+//file:noinspection ForeignDelegate
 plugins {
-	id 'fabric-loom' version '1.7.2'
-	id 'babric-loom-extension' version '1.7.4'
+	id 'fabric-loom' version '1.8.10'
+	id 'babric-loom-extension' version '1.8.6'
 	id 'maven-publish'
 }
 
@@ -12,6 +15,7 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
+
 }
 
 repositories {
@@ -31,6 +35,12 @@ repositories {
 	maven {
 		name = 'Glass Snapshots'
 		url = 'https://maven.glass-launcher.net/snapshots'
+	}
+
+	// NyaRepo
+	maven {
+		name = "nyarepo"
+		url = "https://maven.fildand.cz/releases"
 	}
 
 	// Used for a StationAPI dependency.
@@ -68,19 +78,17 @@ dependencies {
 	modImplementation "babric:fabric-loader:${project.loader_version}"
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
-	implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2'
-	implementation(include("blue.endless:jankson:1.2.1"))
+	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2"
+	implementation "me.carleslc:Simple-Yaml:1.8.4"
 
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
-	// Mod Compat
-	// Beta Horizons Creative
-	modImplementation("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}"){
+	// Optional, but convenient mods for mod creators and users alike.
+	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
 		transitive false
 	}
 
-	// Optional, but convenient mods for mod creators and users alike.
-	modImplementation("com.github.calmilamsy:ModMenu:${project.modmenu_version}") {
+	modImplementation("net.glasslauncher.mods:glass-networking:${project.glass_networking_version}") {
 		transitive false
 	}
 
@@ -88,9 +96,22 @@ dependencies {
 		transitive false
 	}
 
-	modImplementation("net.glasslauncher:HowManyItems-Fabric-Unofficial:${project.howmanyitems_version}") {
+	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
 		transitive false
 	}
+
+	modImplementation("com.github.matthewperiut:retrocommands:${project.retrocommands_version}") {
+		transitive false
+	}
+
+	modImplementation ("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}") {
+		transitive false
+	}
+
+// Not compatible with stapi alpha 3
+//    modRuntimeOnly ("com.github.matthewperiut:stapi-fast-intro:17a7ed0") { 
+//        transitive false 
+//    }
 }
 
 processResources {
@@ -128,7 +149,6 @@ publishing {
 				}
 			}
 		}
-	}
 
 		if(project.hasProperty("nyarepo_publishing_cave_username")){
 			maven {

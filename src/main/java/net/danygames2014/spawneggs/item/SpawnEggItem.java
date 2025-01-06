@@ -66,7 +66,7 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
         BlockState blockState = world.getBlockState(x,y,z);
         if(blockState.getBlock() instanceof SpawnerBlock){
             if(!LivingEntity.class.isAssignableFrom(entityClass)){
-                player.method_490("This entity cannot be set as a spawner entity due to it not being a Living Entity");
+                player.sendMessage("This entity cannot be set as a spawner entity due to it not being a Living Entity");
                 SpawnEggs.LOGGER.info("This entity cannot be set as a spawner entity due to it not being a Living Entity");
                 return true;
             }
@@ -118,17 +118,17 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             }
 
             // Set the Entity position
-            entity.setPos(x,y,z);
+            entity.setPosition(x,y,z);
 
             // Spawn the Entity
             level.spawnEntity(entity);
 
         } catch (Exception e){
             SpawnEggs.LOGGER.error("Error when spawning Entity! \n" + e.getMessage());
-            player.method_490(Formatting.RED + "Error when spawning the entity!");
+            player.sendMessage(Formatting.RED + "Error when spawning the entity!");
             if(ConfigHandler.config.removeInvalidSpawnEggs){
                 item.count = 0;
-                player.method_490(Formatting.RED + "Removed invalid Spawn Egg! You can change this in config");
+                player.sendMessage(Formatting.RED + "Removed invalid Spawn Egg! You can change this in config");
             }
             return false;
         }
