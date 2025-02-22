@@ -26,7 +26,7 @@ public class TextureListener {
     public static JsonUnbakedModel eggModel = JsonUnbakedModel.deserialize("{\"parent\":\"item/generated\",\"textures\":{\"layer0\":\"spawneggs:item/spawn_egg_outer\",\"layer1\":\"spawneggs:item/spawn_egg_inner\",\"layer2\":\"spawneggs:item/spawn_egg_inner_overlay\"}}");
 
     @Entrypoint.Namespace
-    public static final Namespace MOD_ID = Null.get();
+    public static Namespace MOD_ID = Null.get();
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {
@@ -37,6 +37,7 @@ public class TextureListener {
 
     public void colorFromTextureExperiment(){
         // TODO : Fix This
+        // Dany was here on 22.02.2025, still too lazy to fix ¯\_(ツ)_/¯
         for (SpawnEggItem item : SpawnEggs.spawnEggs) {
             Entity entity = EntityRegistry.create(item.spawnedEntity, null);
             String textureId;

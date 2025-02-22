@@ -2,9 +2,9 @@
 //file:noinspection GroovyUnusedAssignment
 //file:noinspection ForeignDelegate
 plugins {
-	id 'fabric-loom' version '1.8.10'
-	id 'babric-loom-extension' version '1.8.6'
 	id 'maven-publish'
+	id 'fabric-loom' version '1.10.1'
+	id 'babric-loom-extension' version '1.10.1'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -19,19 +19,19 @@ loom {
 }
 
 repositories {
-	// Used for the fabric toolchain in this project.
+	// Used for Babric Loom Extensions
 	maven {
 		name = 'Babric'
 		url = 'https://maven.glass-launcher.net/babric'
 	}
 
-	// Used for mappings.
+	// Used for many dependencies
 	maven {
 		name = 'Glass Releases'
 		url = 'https://maven.glass-launcher.net/releases'
 	}
 
-	// Used for StationAPI and HowManyItems.
+	// Used for Snapshots
 	maven {
 		name = 'Glass Snapshots'
 		url = 'https://maven.glass-launcher.net/snapshots'
@@ -55,7 +55,7 @@ repositories {
 		url = 'https://jitpack.io'
 	}
 
-	// Used for another StationAPI dependency
+	// Modrinth Maven
 	exclusiveContent {
 		forRepository {
 			maven {
@@ -72,10 +72,9 @@ repositories {
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.glasslauncher:biny:${project.yarn_mappings}:v2"
-	modImplementation "babric:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2"
@@ -83,7 +82,6 @@ dependencies {
 
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
-	// Optional, but convenient mods for mod creators and users alike.
 	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
 		transitive false
 	}
@@ -104,14 +102,13 @@ dependencies {
 		transitive false
 	}
 
-	modImplementation ("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}") {
+	modImplementation("maven.modrinth:bh-creative:${project.bhcreative_version}-fabric,b1.7.3") {
 		transitive false
 	}
 
-// Not compatible with stapi alpha 3
-//    modRuntimeOnly ("com.github.matthewperiut:stapi-fast-intro:17a7ed0") { 
-//        transitive false 
-//    }
+	modRuntimeOnly("maven.modrinth:fast-stapi-intro:2.0.0-fabric,b1.7.3") {
+		transitive false
+	}
 }
 
 processResources {

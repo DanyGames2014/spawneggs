@@ -15,7 +15,6 @@ import net.modificationstation.stationapi.api.event.resource.language.Translatio
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.mod.entrypoint.EntrypointManager;
 import net.modificationstation.stationapi.api.util.Namespace;
-import net.modificationstation.stationapi.api.util.Null;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -25,10 +24,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class SpawnEggs {
     @Entrypoint.Namespace
-    public static final Namespace MOD_ID = Null.get();
+    public static Namespace MOD_ID;
 
     @Entrypoint.Logger
-    public static final Logger LOGGER = Null.get();
+    public static Logger LOGGER;
 
     // Items
     public static Item devSword;
