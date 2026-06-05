@@ -3,6 +3,6 @@ tab.spawneggs.spawneggs.name=Spawn Eggs
 item.spawneggs.dev_sword.name=Milos
 item.spawneggs.spawn_egg.name=%s Spawn Egg
 
-entity.spawneggs.zombie.name=Zombie
-entity.spawneggs.pigzombie.name=Zombie Pigman
-entity.spawneggs.primedtnt.name=Primed TNT
+entity.minecraft.Zombie.name=Zombie
+entity.minecraft.PigZombie.name=Zombie Pigman
+entity.minecraft.PrimedTnt.name=Primed TNT

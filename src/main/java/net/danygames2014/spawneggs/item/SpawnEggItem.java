@@ -16,6 +16,7 @@ import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Formatting;
+import net.modificationstation.stationapi.api.util.Identifier;
 
 public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider {
 
@@ -57,8 +58,10 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
     public SpawnEggItem(String spawnedEntity) {
         super(SpawnEggs.MOD_ID.id(spawnedEntity.toLowerCase() + "_spawn_egg"));
         this.spawnedEntity = spawnedEntity;
+        
+        Identifier entityIdentifier = Identifier.of(spawnedEntity);
 
-        setTranslationKey(SpawnEggs.MOD_ID, spawnedEntity.toLowerCase() + "_spawn_egg");
+        setTranslationKey(SpawnEggs.MOD_ID, entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
     }
 
     @Override

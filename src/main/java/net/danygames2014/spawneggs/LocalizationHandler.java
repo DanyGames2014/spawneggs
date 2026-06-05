@@ -2,6 +2,7 @@ package net.danygames2014.spawneggs;
 
 import net.danygames2014.spawneggs.mixin.TranslationStorageAccessor;
 import net.minecraft.client.resource.language.TranslationStorage;
+import net.modificationstation.stationapi.api.util.Identifier;
 
 import java.util.Properties;
 
@@ -32,12 +33,14 @@ public class LocalizationHandler {
         // localization as they're registered, if it cannot find a localization it will check whetever it should
         // attempt to localize it, in which case it will take the mob's registry name
 
+        Identifier entityIdentifier = Identifier.of(spawnedEntity);
+        
         /// Check if the mod lang file contains a localization for the mob
         // If localization is present, it will be used
-        if (translations.containsKey("entity.spawneggs." + spawnedEntity.toLowerCase() + ".name")) {
+        if (translations.containsKey("entity." + entityIdentifier.namespace + "." + entityIdentifier.path + ".name")) {
             translations.put(
                     // [Key] Translation Key
-                    "item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                    "item.spawneggs." + entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg.name",
 
                     // [Value] Translated Name
                     // Replaces the %s in spawn egg localization with the localized entity name
@@ -45,7 +48,7 @@ public class LocalizationHandler {
                             // Generic Spawn Egg Name ( Example : %s Spawn Egg )
                             translations.getProperty("item.spawneggs.spawn_egg.name"),
                             // Entity Name ( Example: Zombie )
-                            translations.getProperty("entity.spawneggs." + spawnedEntity.toLowerCase() + ".name")
+                            translations.getProperty("entity." + entityIdentifier.namespace + "." + entityIdentifier.path + ".name")
                     )
             );
             // If localization is not present, the config will be checked to determine whetever localization should be attempted from the registry name
@@ -55,7 +58,7 @@ public class LocalizationHandler {
                 try {
                     translations.put(
                             // [Key] Translation Key
-                            "item.spawneggs." + spawnedEntity.toLowerCase() + "_spawn_egg.name",
+                            "item.spawneggs." + entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg.name",
 
                             // [Value] Translated Name
                             // Replaces the %s in spawn egg localization with the localized entity name
@@ -63,7 +66,7 @@ public class LocalizationHandler {
                                     // Generic Spawn Egg Name ( Example : %s Spawn Egg )
                                     translations.getProperty("item.spawneggs.spawn_egg.name", "%s Spawn Egg"),
                                     // Entity Name ( Example: Zombie )
-                                    spawnedEntity
+                                    entityIdentifier.path
                             )
                     );
                 } catch (NumberFormatException e) {
