@@ -3,6 +3,132 @@ tab.spawneggs.spawneggs.name=Spawn Eggs
 item.spawneggs.dev_sword.name=Milos
 item.spawneggs.spawn_egg.name=%s Spawn Egg
 
-entity.minecraft.Zombie.name=Zombie
+# Vanilla
+entity.minecraft.Arrow.name=Arrow
+entity.minecraft.Boat.name=Boat
+entity.minecraft.Chicken.name=Chicken
+entity.minecraft.Cow.name=Cow
+entity.minecraft.Creeper.name=Creeper
+entity.minecraft.Ghast.name=Ghast
+entity.minecraft.Giant.name=Giant
+entity.minecraft.Minecart.name=Minecart
+entity.minecraft.Monster.name=Monster
+entity.minecraft.Pig.name=Pig
 entity.minecraft.PigZombie.name=Zombie Pigman
 entity.minecraft.PrimedTnt.name=Primed TNT
+entity.minecraft.Sheep.name=Sheep
+entity.minecraft.Skeleton.name=Skeleton
+entity.minecraft.Slime.name=Slime
+entity.minecraft.Snowball.name=Snowball
+entity.minecraft.Spider.name=Spider
+entity.minecraft.Squid.name=Squid
+entity.minecraft.Wolf.name=Wolf
+entity.minecraft.Zombie.name=Zombie
+
+# Aether
+entity.aether.AechorPlant.name=Aechor Plant
+entity.aether.Aerbunny.name=Aerbunny
+entity.aether.Aerwhale.name=Aerwhale
+entity.aether.AetherLightning.name=Aether Lightning
+entity.aether.CloudParachute.name=Cloud Parachute
+entity.aether.Cockatrice.name=Cockatrice
+entity.aether.EnchantedDart.name=Enchanted Dart
+entity.aether.FireMinion.name=Fire Minion
+entity.aether.FireMonster.name=Fire Monster
+entity.aether.FiroBall.name=Firoball
+entity.aether.FlamingArrow.name=Flaming Arrow
+entity.aether.FloatingBlock.name=Floating Block
+entity.aether.FlyingCow.name=Flying Cow
+entity.aether.GoldenDart.name=Golden Dart
+entity.aether.HomeShot.name=Home Shot
+entity.aether.LightningKnife.name=Lightning Knife
+entity.aether.Mimic.name=Mimic
+entity.aether.Minicloud.name=Minicloud
+entity.aether.Moa.name=Moa
+entity.aether.NotchWave.name=Notch Wave
+entity.aether.Phyg.name=Phyg
+entity.aether.PoisonDart.name=Poison Dart
+entity.aether.PoisonNeedle.name=Poison Needle
+entity.aether.Sentry.name=Sentry
+entity.aether.Sheepuff.name=Sheepuff
+entity.aether.Slider.name=Slider
+entity.aether.Swet.name=Swet
+entity.aether.Valkyrie.name=Valkyrie
+entity.aether.Whirlwind.name=Whirlwind
+entity.aether.Zephyr.name=Zephyr
+entity.aether.ZephyrSnowball.name=Zephyr Snowball
+
+# Battle Towers
+entity.battletower.GolemFireball.name=Golem Fireball
+entity.battletower.TowerGolem.name=Tower Golem
+entity.battletower.TowerGolem_old.name=Old Tower Golem
+
+# Buildcraft
+entity.buildcraft.block.name=Block
+entity.buildcraft.block_with_parent.name=Block With Parent
+entity.buildcraft.mechanical_arm.name=Mechanical Arm
+entity.buildcraft.robot.name=Robot
+entity.buildcraft.travelling_item.name=Travelling Item
+
+# Elemental Arrows
+entity.elementalarrows.egg_arrow.name=Egg Arrow
+entity.elementalarrows.explosive_arrow.name=Explosive Arrow
+entity.elementalarrows.fire_arrow.name=Fire Arrow
+entity.elementalarrows.ice_arrow.name=Ice Arrow
+entity.elementalarrows.lighting_arrow.name=Lighting Arrow
+entity.elementalarrows.torch_arrow.name=Torch Arrow
+
+# Logistics Pipes
+entity.logisticspipes.routed_item.name=Routed Item
+
+# Mo' Creatures
+entity.mocreatures.Bear.name=Bear
+entity.mocreatures.BigCat.name=BigCat
+entity.mocreatures.Bird.name=Bird
+entity.mocreatures.Boar.name=Boar
+entity.mocreatures.Bunny.name=Bunny
+entity.mocreatures.Camel.name=Camel
+entity.mocreatures.CaveOgre.name=Cave Ogre
+entity.mocreatures.Collie.name=Collie
+entity.mocreatures.Crocodile.name=Crocodile
+entity.mocreatures.Deer.name=Deer
+entity.mocreatures.Dolphin.name=Dolphin
+entity.mocreatures.Duck.name=Duck
+entity.mocreatures.Elephant.name=Elephant
+entity.mocreatures.FireOgre.name=Fire Ogre
+entity.mocreatures.Fishy.name=Fishy
+entity.mocreatures.FishyEgg.name=Fishy Egg
+entity.mocreatures.FlameWraith.name=Flame Wraith
+entity.mocreatures.Fox.name=Fox
+entity.mocreatures.Giraffe.name=Giraffe
+entity.mocreatures.HellRat.name=Hell Rat
+entity.mocreatures.Hippo.name=Hippo
+entity.mocreatures.Horse.name=Horse
+entity.mocreatures.Kitty.name=Kitty
+entity.mocreatures.KittyBed.name=Kitty Bed
+entity.mocreatures.LitterBox.name=Litter Box
+entity.mocreatures.Mouse.name=Mouse
+entity.mocreatures.Mummy.name=Mummy
+entity.mocreatures.Ogre.name=Ogre
+entity.mocreatures.PolarBear.name=Polar Bear
+entity.mocreatures.Rat.name=Rat
+entity.mocreatures.Ray.name=Ray
+entity.mocreatures.Scorpion.name=Scorpion
+entity.mocreatures.Shark.name=Shark
+entity.mocreatures.SharkEgg.name=Shark Egg
+entity.mocreatures.Sheep.name=Sheep
+entity.mocreatures.Turtle.name=Turtle
+entity.mocreatures.WereWolf.name=Werewolf
+entity.mocreatures.WildWolf.name=Wild Wolf
+entity.mocreatures.Wraith.name=Wraith
+entity.mocreatures.Zebra.name=Zebra
+
+# BTW
+entity.wolves.BlockLiftedByPlatform.name=Block Lifted By Platform
+entity.wolves.BroadheadArrow.name=Broadhead Arrow
+entity.wolves.FallingAnvil.name=Falling Anvil
+entity.wolves.MovingAnchor.name=Moving Anchor
+entity.wolves.MovingPlatform.name=Moving Platform
+entity.wolves.SteelMinecart.name=Steel Minecart
+entity.wolves.WaterWheel.name=Water Wheel
+entity.wolves.WindMill.name=Wind Mill
