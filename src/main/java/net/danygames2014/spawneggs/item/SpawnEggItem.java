@@ -56,12 +56,17 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
     }
 
     public SpawnEggItem(String spawnedEntity) {
-        super(SpawnEggs.MOD_ID.id(spawnedEntity.toLowerCase() + "_spawn_egg"));
+        super(constructIdentifier(spawnedEntity));
         this.spawnedEntity = spawnedEntity;
         
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
 
         setTranslationKey(SpawnEggs.MOD_ID, entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
+    }
+    
+    public static Identifier constructIdentifier(String spawnedEntity) {
+        Identifier entityIdentifier = Identifier.of(spawnedEntity);
+        return SpawnEggs.MOD_ID.id(entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
     }
 
     @Override
