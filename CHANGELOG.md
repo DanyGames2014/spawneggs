@@ -1,2 +1,1 @@
-* Include localization for modded entities
-* Fix wrong identifier
+* Deserialize the egg model lazily, fixing compat with ConnectedTexturesMod
