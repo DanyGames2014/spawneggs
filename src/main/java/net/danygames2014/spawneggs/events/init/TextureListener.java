@@ -18,12 +18,10 @@ import net.modificationstation.stationapi.api.util.Null;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.util.Arrays;
 
 public class TextureListener {
 
-    public static JsonUnbakedModel eggModel = JsonUnbakedModel.deserialize("{\"parent\":\"item/generated\",\"textures\":{\"layer0\":\"spawneggs:item/spawn_egg_outer\",\"layer1\":\"spawneggs:item/spawn_egg_inner\",\"layer2\":\"spawneggs:item/spawn_egg_inner_overlay\"}}");
+    public static JsonUnbakedModel eggModel;
 
     @Entrypoint.Namespace
     public static Namespace MOD_ID = Null.get();
@@ -38,6 +36,7 @@ public class TextureListener {
     public void colorFromTextureExperiment(){
         // TODO : Fix This
         // Dany was here on 22.02.2025, still too lazy to fix ¯\_(ツ)_/¯
+        // Dany was once again here on 4.9.2026 and still too lazy to fix this
         for (SpawnEggItem item : SpawnEggs.spawnEggs) {
             Entity entity = EntityRegistry.create(item.spawnedEntity, null);
             String textureId;
@@ -97,6 +96,8 @@ public class TextureListener {
 
     @EventListener
     public void registerModel(PreLoadUnbakedModelEvent event) {
+        eggModel = JsonUnbakedModel.deserialize("{\"parent\":\"item/generated\",\"textures\":{\"layer0\":\"spawneggs:item/spawn_egg_outer\",\"layer1\":\"spawneggs:item/spawn_egg_inner\",\"layer2\":\"spawneggs:item/spawn_egg_inner_overlay\"}}");
+        
         if (event.identifier.namespace.equals(SpawnEggs.MOD_ID) && event.identifier.path.contains("spawn_egg")) {
             event.loader = identifier -> eggModel;
         }
