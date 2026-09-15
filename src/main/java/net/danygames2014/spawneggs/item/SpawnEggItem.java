@@ -50,10 +50,8 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             if (ColorizationHandler.defaultEggColors.containsKey(spawnedEntity)) {
                 int[] colors = ColorizationHandler.defaultEggColors.get(spawnedEntity);
                 ColorizationHandler.registerSpawnEggColorHex(spawnedEntity, colors[0], colors[1], colors[2]);
-                return;
             }
         }
-        ColorizationHandler.registerSpawnEggColorInt(spawnedEntity, ColorizationHandler.BASE_COLOR, ColorizationHandler.BASE_COLOR, ColorizationHandler.BASE_COLOR);
     }
 
     public SpawnEggItem(String spawnedEntity) {

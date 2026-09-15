@@ -33,6 +33,7 @@
     ]
   },
 
+  "accessWidener": "spawneggs.accesswidener",
   "mixins": [
     "spawneggs.mixins.json"
   ],

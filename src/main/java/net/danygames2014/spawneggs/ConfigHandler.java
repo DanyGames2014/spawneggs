@@ -23,6 +23,9 @@ public class ConfigHandler {
 
         @ConfigEntry(name = "Attempt to localize unlocalized entity names", longDescription = "If true and no localization for the entity is present in the lang file, the registry name will be used. If false it will remain unlocalized")
         public Boolean attemptLocalization = true;
+        
+        @ConfigEntry(name = "Automatic Spawn Egg Colorization", longDescription = "Allows the automatic calculation of spawn egg colors from the entity's texture, if its available")
+        public Boolean automaticEggColorization = true;
 
         @ConfigEntry(name = "Blacklisted Entities (Registry names)")
         public String[] blacklistedEntities = new String[]{
