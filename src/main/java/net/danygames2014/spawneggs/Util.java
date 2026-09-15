@@ -1,7 +1,6 @@
 package net.danygames2014.spawneggs;
 
 import java.awt.*;
-import java.lang.reflect.Field;
 
 public class Util {
     /**

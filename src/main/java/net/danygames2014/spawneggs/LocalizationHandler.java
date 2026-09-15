@@ -1,6 +1,5 @@
 package net.danygames2014.spawneggs;
 
-import net.danygames2014.spawneggs.mixin.TranslationStorageAccessor;
 import net.minecraft.client.resource.language.TranslationStorage;
 import net.modificationstation.stationapi.api.util.Identifier;
 
@@ -10,16 +9,11 @@ import java.util.Properties;
  * This class handles the localization and registering of localized names
  */
 public class LocalizationHandler {
-
     // Translations
-    public static TranslationStorage translationStorage = TranslationStorage.getInstance();
     public static Properties translations;
 
-    /**
-     * Tries to use reflection to access the translation list from Translation Storage, if an exception is thrown, makes a new empty list
-     */
     static {
-        translations = ((TranslationStorageAccessor) translationStorage).getTranslations();
+        translations = TranslationStorage.getInstance().translations;
     }
 
     /**

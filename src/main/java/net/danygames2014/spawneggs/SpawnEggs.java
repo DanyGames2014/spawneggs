@@ -4,7 +4,6 @@ import net.danygames2014.spawneggs.api.event.SpawnEggBlacklistEvent;
 import net.danygames2014.spawneggs.api.event.SpawnEggColorizationEvent;
 import net.danygames2014.spawneggs.item.DevSwordItem;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
-import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.mine_diver.unsafeevents.listener.ListenerPriority;
@@ -49,7 +48,8 @@ public class SpawnEggs {
         String ignored = EntityRegistry.class.getName();
 
         // Use Mixin to access the list of registered entities
-        entityRegistry = EntityRegistryAccessor.getEntities().values().stream().toList();
+        //noinspection unchecked
+        entityRegistry = (List<String>) EntityRegistry.classToId.values().stream().toList();
 
         // Fetches the entity blacklist from config
         List<String> entityBlacklist = Arrays.stream(ConfigHandler.config.blacklistedEntities).toList();

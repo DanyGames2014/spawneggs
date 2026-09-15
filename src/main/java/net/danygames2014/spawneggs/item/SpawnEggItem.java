@@ -3,7 +3,6 @@ package net.danygames2014.spawneggs.item;
 import net.danygames2014.spawneggs.ColorizationHandler;
 import net.danygames2014.spawneggs.ConfigHandler;
 import net.danygames2014.spawneggs.SpawnEggs;
-import net.danygames2014.spawneggs.mixin.EntityRegistryAccessor;
 import net.minecraft.block.SpawnerBlock;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.Entity;
@@ -70,7 +69,8 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
 
     @Override
     public boolean useOnBlock(ItemStack item, PlayerEntity player, World world, int x, int y, int z, int side) {
-        Class<? extends Entity> entityClass = EntityRegistryAccessor.getStringToIdMap().get(this.spawnedEntity);
+        //noinspection unchecked
+        Class<? extends Entity> entityClass = (Class<? extends Entity>) EntityRegistry.idToClass.get(this.spawnedEntity);
 
         BlockState blockState = world.getBlockState(x, y, z);
         if (blockState.getBlock() instanceof SpawnerBlock) {
