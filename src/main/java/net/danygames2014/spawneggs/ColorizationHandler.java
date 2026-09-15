@@ -1,14 +1,15 @@
 package net.danygames2014.spawneggs;
 
-import java.util.HashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.modificationstation.stationapi.api.util.math.MathHelper;
 
 /**
  * Handles the colors for Spawn Eggs
  */
 public class ColorizationHandler {
-    public static HashMap<String, int[]> eggColor = new HashMap<>();
+    public static Object2ObjectOpenHashMap<String, int[]> eggColor = new Object2ObjectOpenHashMap<>();
 
-    public static HashMap<String, int[]> defaultEggColors = new HashMap<>();
+    public static Object2ObjectOpenHashMap<String, int[]> defaultEggColors = new Object2ObjectOpenHashMap<>();
 
     static {
         defaultEggColors.put("Spider", new int[]{0x6b2020, 0x000000, 0xff0000});
@@ -40,9 +41,9 @@ public class ColorizationHandler {
      * @return Whether the registration was succesfull
      */
     public static boolean registerSpawnEggColorInt(String entity, int outerLayer, int innerLayer, int innerLayerOverlay) {
-        outerLayer = Util.clamp(outerLayer, 0, 16777215);
-        innerLayer = Util.clamp(innerLayer, 0, 16777215);
-        innerLayerOverlay = Util.clamp(innerLayerOverlay, 0, 16777215);
+        outerLayer = MathHelper.clamp(outerLayer, 0, 16777215);
+        innerLayer = MathHelper.clamp(innerLayer, 0, 16777215);
+        innerLayerOverlay = MathHelper.clamp(innerLayerOverlay, 0, 16777215);
 
         eggColor.put(entity, new int[]{outerLayer, innerLayer, innerLayerOverlay});
         return true;
@@ -59,6 +60,6 @@ public class ColorizationHandler {
      * @return Whether the registration was succesfull
      */
     public static boolean registerSpawnEggColorHex(String entity, int outerLayer, int innerLayer, int innerLayerOverlay) {
-        return registerSpawnEggColorInt(entity, Util.hexColorToInt(outerLayer), Util.hexColorToInt(innerLayer), Util.hexColorToInt(innerLayerOverlay));
+        return registerSpawnEggColorInt(entity, ColorUtil.hexColorToInt(outerLayer), ColorUtil.hexColorToInt(innerLayer), ColorUtil.hexColorToInt(innerLayerOverlay));
     }
 }

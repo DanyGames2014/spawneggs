@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityRegistry;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.client.texture.TextureHelper;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -280,6 +281,17 @@ public class ColorUtil {
         int g = (int) (((rgb >> 8) & 0xFF) * factor);
         int b = (int) ((rgb & 0xFF) * factor);
         return (r << 16) | (g << 8) | b;
+    }
+
+    /**
+     * Converts color represented in hex into color represented by int
+     *
+     * @param hexColor Color in Hex (such as 0xFFFFFF)
+     * @return The same color in an int representation
+     */
+    public static int hexColorToInt(int hexColor) {
+        Color color = new Color(hexColor);
+        return (((color.getRed() & 255) << 16) | ((color.getGreen() & 255) << 8) | ((color.getBlue() & 255)));
     }
 
     private static class Cluster {

@@ -1,5 +1,6 @@
 package net.danygames2014.spawneggs;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.danygames2014.spawneggs.api.event.SpawnEggBlacklistEvent;
 import net.danygames2014.spawneggs.api.event.SpawnEggColorizationEvent;
 import net.danygames2014.spawneggs.item.DevSwordItem;
@@ -18,30 +19,24 @@ import net.modificationstation.stationapi.api.mod.entrypoint.EntrypointManager;
 import net.modificationstation.stationapi.api.util.Namespace;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class SpawnEggs {
     @Entrypoint.Namespace
-    public static Namespace MOD_ID;
+    public static Namespace NAMESPACE;
 
     @Entrypoint.Logger
     public static Logger LOGGER;
 
     // Items
     public static Item devSword;
-    public static ArrayList<SpawnEggItem> spawnEggs = new ArrayList<>();
-
-    // Entity Registry
-    public static List<String> entityRegistry;
+    public static ObjectArrayList<SpawnEggItem> spawnEggs = new ObjectArrayList<>();
 
     @EventListener(priority = ListenerPriority.LOWEST)
     public void registerItems(ItemRegistryEvent event) {
         // Registers the Dev Sword if allowed in configy
         if (ConfigHandler.config.allowDevSword) {
-            devSword = new DevSwordItem(MOD_ID.id("dev_sword")).setTranslationKey(MOD_ID, "dev_sword");
+            devSword = new DevSwordItem(NAMESPACE.id("dev_sword")).setTranslationKey(NAMESPACE, "dev_sword");
         }
 
         // Pre-touch the EntityRegistry
@@ -49,10 +44,10 @@ public class SpawnEggs {
 
         // Use Mixin to access the list of registered entities
         //noinspection unchecked
-        entityRegistry = (List<String>) EntityRegistry.classToId.values().stream().toList();
+        List<String> entityRegistry = (List<String>) EntityRegistry.classToId.values().stream().toList();
 
         // Fetches the entity blacklist from config
-        List<String> entityBlacklist = Arrays.stream(ConfigHandler.config.blacklistedEntities).toList();
+        ObjectArrayList<String> entityBlacklist = new ObjectArrayList<>(ConfigHandler.config.blacklistedEntities);
 
         // Allow mods to blacklist entities
         StationAPI.EVENT_BUS.post(new SpawnEggBlacklistEvent(entityBlacklist));
@@ -62,11 +57,11 @@ public class SpawnEggs {
             // Check if the entity is present on blacklist
             if (!entityBlacklist.contains(item)) {
                 // If present register the Spawn Egg
-                LOGGER.info("Adding Spawn Egg for " + item);
+                LOGGER.info("Adding Spawn Egg for {}", item);
                 spawnEggs.add(new SpawnEggItem(item, true));
             } else {
                 // If not present do not register the spawn egg
-                LOGGER.info("Entity " + item + " found on blacklist, not adding!");
+                LOGGER.info("Entity {} found on blacklist, not adding!", item);
             }
         }
 
@@ -77,7 +72,6 @@ public class SpawnEggs {
     @EventListener
     public void localizeSpawnEggs(TranslationInvalidationEvent event) {
         for (var egg : spawnEggs) {
-//            LOGGER.info("Localizing " + egg.spawnedEntity + " Spawn Egg");
             LocalizationHandler.registerSpawnEggLocalization(egg.spawnedEntity);
         }
     }

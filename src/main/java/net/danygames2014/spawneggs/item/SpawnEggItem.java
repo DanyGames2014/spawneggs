@@ -59,12 +59,12 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
 
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
 
-        setTranslationKey(SpawnEggs.MOD_ID, entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
+        setTranslationKey(SpawnEggs.NAMESPACE, entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
     }
 
     public static Identifier constructIdentifier(String spawnedEntity) {
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
-        return SpawnEggs.MOD_ID.id(entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
+        return SpawnEggs.NAMESPACE.id(entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
     }
 
     @Override
@@ -161,7 +161,7 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
             level.spawnEntity(entity);
 
         } catch (Exception e) {
-            SpawnEggs.LOGGER.error("Error when spawning Entity! \n" + e.getMessage());
+            SpawnEggs.LOGGER.error("Error when spawning Entity! \n{}", e.getMessage());
             player.sendMessage(Formatting.RED + "Error when spawning the entity!");
             if (ConfigHandler.config.removeInvalidSpawnEggs) {
                 item.count = 0;

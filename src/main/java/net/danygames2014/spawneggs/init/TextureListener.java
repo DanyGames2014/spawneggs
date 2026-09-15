@@ -33,7 +33,7 @@ public class TextureListener {
             eggModel = JsonUnbakedModel.deserialize("{\"parent\":\"item/generated\",\"textures\":{\"layer0\":\"spawneggs:item/spawn_egg_outer\",\"layer1\":\"spawneggs:item/spawn_egg_inner\",\"layer2\":\"spawneggs:item/spawn_egg_inner_overlay\"}}");
         }
 
-        if (event.identifier.namespace.equals(SpawnEggs.MOD_ID) && event.identifier.path.contains("spawn_egg")) {
+        if (event.identifier.namespace.equals(SpawnEggs.NAMESPACE) && event.identifier.path.contains("spawn_egg")) {
             event.loader = identifier -> eggModel;
         }
     }
