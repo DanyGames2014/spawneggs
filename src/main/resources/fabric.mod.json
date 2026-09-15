@@ -25,7 +25,7 @@
     ],
     "stationapi:event_bus_server": [
     ],
-    "gcapi": [
+    "gcapi3": [
       "net.danygames2014.spawneggs.ConfigHandler"
     ],
     "bhcreative:event_bus": [
