@@ -18,10 +18,11 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "net.danygames2014.spawneggs.SpawnEggs"
+      "net.danygames2014.spawneggs.SpawnEggs",
+      "net.danygames2014.spawneggs.init.InitListener"
     ],
     "stationapi:event_bus_client": [
-      "net.danygames2014.spawneggs.events.init.TextureListener"
+      "net.danygames2014.spawneggs.init.TextureListener"
     ],
     "stationapi:event_bus_server": [
     ],
@@ -29,7 +30,7 @@
       "net.danygames2014.spawneggs.ConfigHandler"
     ],
     "bhcreative:event_bus": [
-      "net.danygames2014.spawneggs.events.init.CreativeListener"
+      "net.danygames2014.spawneggs.init.CreativeListener"
     ]
   },
 

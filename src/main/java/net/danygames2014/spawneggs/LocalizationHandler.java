@@ -34,7 +34,7 @@ public class LocalizationHandler {
         // attempt to localize it, in which case it will take the mob's registry name
 
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
-        
+
         /// Check if the mod lang file contains a localization for the mob
         // If localization is present, it will be used
         if (translations.containsKey("entity." + entityIdentifier.namespace + "." + entityIdentifier.path + ".name")) {

@@ -32,16 +32,16 @@ public class DevSwordItem extends TemplateSwordItem {
 
     @Override
     public ItemStack use(ItemStack item, World world, PlayerEntity player) {
-        if(world.isRemote){
+        if (world.isRemote) {
             return item;
         }
 
-        for (int i = 0; i < world.entities.size(); i++){
+        for (int i = 0; i < world.entities.size(); i++) {
             Entity entity = (Entity) world.entities.get(i);
-            if(!(entity instanceof PlayerEntity) && !(!player.isSneaking() && entity instanceof ItemEntity)){
-                entity.damage(player,9000);
+            if (!(entity instanceof PlayerEntity) && !(!player.isSneaking() && entity instanceof ItemEntity)) {
+                entity.damage(player, 9000);
             }
         }
-        return super.use(item,world,player);
+        return super.use(item, world, player);
     }
 }

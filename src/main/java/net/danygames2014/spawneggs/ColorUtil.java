@@ -119,7 +119,7 @@ public class ColorUtil {
 
         try {
             //noinspection unchecked
-            Class<Entity> var3 = (Class<Entity>)EntityRegistry.idToClass.get(item.spawnedEntity);
+            Class<Entity> var3 = (Class<Entity>) EntityRegistry.idToClass.get(item.spawnedEntity);
             if (var3 != null) {
                 entity = var3.getConstructor(World.class).newInstance((World) null);
             }
@@ -150,7 +150,7 @@ public class ColorUtil {
         } catch (Exception ignored) {
             return false;
         }
-        
+
         return false;
     }
 

@@ -1,4 +1,4 @@
-package net.danygames2014.spawneggs.events.init;
+package net.danygames2014.spawneggs.init;
 
 import net.danygames2014.spawneggs.ColorUtil;
 import net.danygames2014.spawneggs.ColorizationHandler;

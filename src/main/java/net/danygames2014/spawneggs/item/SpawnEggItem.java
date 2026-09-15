@@ -102,7 +102,7 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
 
         if (isShiftKeyDown) {
             return new String[]{
-                    originalTooltip, 
+                    originalTooltip,
                     "Registry Name : " + spawnedEntity
             };
         }

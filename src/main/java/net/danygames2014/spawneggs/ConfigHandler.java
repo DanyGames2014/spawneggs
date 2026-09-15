@@ -23,16 +23,54 @@ public class ConfigHandler {
 
         @ConfigEntry(name = "Attempt to localize unlocalized entity names", longDescription = "If true and no localization for the entity is present in the lang file, the registry name will be used. If false it will remain unlocalized")
         public Boolean attemptLocalization = true;
-        
+
         @ConfigEntry(name = "Automatic Spawn Egg Colorization", longDescription = "Allows the automatic calculation of spawn egg colors from the entity's texture, if its available")
         public Boolean automaticEggColorization = true;
 
         @ConfigEntry(name = "Blacklisted Entities (Registry names)")
         public String[] blacklistedEntities = new String[]{
-                "Item",
-                "Painting",
-                "Mob",
-                "FallingSand"
+                "Item", // Crashes
+                "Painting", // Crashes
+                "Mob", // Does Nothing
+                "FallingSand", // Crashes
+                "aether:AetherLightning", // Unnecessary
+                "aether:CloudParachute", // Does nothing
+                "aether:EnchantedDart", // Unnecessary
+                "aether:FlamingArrow", // Unnecessary
+                "aether:FloatingBlock", // Crashes
+                "aether:GoldenDart", // Unnecessary
+                "aether:HomeShot", // Crashes
+                "aether:LightningKnife", // Unnecessary
+                "aether:Minicloud", // Unnecessary
+                "aether:NotchWave", // Bugged entity
+                "aether:PoisonDart", // Unnecessary
+                "aether:PoisonNeedle", // Unnecessary
+                "aether:Slider", // Bugged entity
+                "aether:ZephyrSnowball", // Bugged entity
+                "battletower:GolemFireball", // Bugged entity
+                "battletower:TowerGolem", // Bugged entity
+                "battletower:TowerGolem_old", // Bugged entity
+                "buildcraft:travelling_item", // Crashes
+                "buildcraft:robot", // Does nothing
+                "buildcraft:mechanical_arm", // Does nothing
+                "buildcraft:block", // Does nothing
+                "buildcraft:block_with_parent", // Does nothing
+                "logisticspipes:routed_item", // Crashes
+                "elementalarrows:egg_arrow", // Unnecessary
+                "elementalarrows:explosive_arrow", // Unnecessary
+                "elementalarrows:fire_arrow", // Unnecessary
+                "elementalarrows:ice_arrow", // Unnecessary
+                "elementalarrows:lighting_arrow", // Unnecessary
+                "elementalarrows:torch_arrow", // Unnecessary
+                "tropicraft:poison_blot", // Unnecessary
+                "wolves:BroadheadArrow", // Unnecessary
+                "wolves:BlockLiftedByPlatform", // Crashes
+                "wolves:FallingAnvil", // Does nothing
+                "wolves:MovingPlatform", // Unnecessary
+                "wolves:MovingAnchor", // Unnecessary
+                "wolves:StapiTEST", // Unnecessary
+                "wolves:WaterWheel", // Unnecessary
+                "wolves:WindMill", // Unnecessary
         };
     }
 }
