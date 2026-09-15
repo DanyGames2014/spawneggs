@@ -1,5 +1,6 @@
 package net.danygames2014.spawneggs;
 
+import net.danygames2014.spawneggs.api.event.SpawnEggBlacklistEvent;
 import net.danygames2014.spawneggs.api.event.SpawnEggColorizationEvent;
 import net.danygames2014.spawneggs.item.DevSwordItem;
 import net.danygames2014.spawneggs.item.SpawnEggItem;
@@ -10,7 +11,6 @@ import net.mine_diver.unsafeevents.listener.ListenerPriority;
 import net.minecraft.entity.EntityRegistry;
 import net.minecraft.item.Item;
 import net.modificationstation.stationapi.api.StationAPI;
-import net.modificationstation.stationapi.api.event.entity.EntityRegisterEvent;
 import net.modificationstation.stationapi.api.event.mod.InitEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.event.resource.language.TranslationInvalidationEvent;
@@ -53,6 +53,9 @@ public class SpawnEggs {
 
         // Fetches the entity blacklist from config
         List<String> entityBlacklist = Arrays.stream(ConfigHandler.config.blacklistedEntities).toList();
+
+        // Allow mods to blacklist entities
+        StationAPI.EVENT_BUS.post(new SpawnEggBlacklistEvent(entityBlacklist));
 
         // Register Spawn Eggs
         for (String item : entityRegistry) {
