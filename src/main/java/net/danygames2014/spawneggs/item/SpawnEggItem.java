@@ -17,9 +17,10 @@ import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.template.item.TemplateItem;
 import net.modificationstation.stationapi.api.util.Formatting;
 import net.modificationstation.stationapi.api.util.Identifier;
+import net.modificationstation.stationapi.api.util.SideUtil;
+import org.lwjgl.input.Keyboard;
 
 public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider {
-
     // Registry name of the spawned entity
     public String spawnedEntity;
 
@@ -58,12 +59,12 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
     public SpawnEggItem(String spawnedEntity) {
         super(constructIdentifier(spawnedEntity));
         this.spawnedEntity = spawnedEntity;
-        
+
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
 
         setTranslationKey(SpawnEggs.MOD_ID, entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
     }
-    
+
     public static Identifier constructIdentifier(String spawnedEntity) {
         Identifier entityIdentifier = Identifier.of(spawnedEntity);
         return SpawnEggs.MOD_ID.id(entityIdentifier.namespace + "_" + entityIdentifier.path + "_spawn_egg");
@@ -99,9 +100,17 @@ public class SpawnEggItem extends TemplateItem implements CustomTooltipProvider 
 
     @Override
     public String[] getTooltip(ItemStack itemInstance, String originalTooltip) {
+        boolean isShiftKeyDown = SideUtil.get(() -> Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT), () -> false);
+
+        if (isShiftKeyDown) {
+            return new String[]{
+                    originalTooltip, 
+                    "Registry Name : " + spawnedEntity
+            };
+        }
+
         return new String[]{
-                originalTooltip,
-                "Registry Name : " + spawnedEntity
+                originalTooltip
         };
     }
 
