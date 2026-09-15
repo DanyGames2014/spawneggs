@@ -123,32 +123,32 @@ public class ColorUtil {
             if (var3 != null) {
                 entity = var3.getConstructor(World.class).newInstance((World) null);
             }
-        } catch (Exception ignored) {
-            return false;
-        }
 
-        if (entity == null) {
-            return false;
-        }
-
-        String textureId = entity.getTexture();
-        if (textureId != null && !textureId.contains("/mob/char.png") && !textureId.isBlank()) {
-            BufferedImage texture = TextureHelper.getTexture(textureId);
-
-            if (texture == null) {
+            if (entity == null) {
                 return false;
             }
 
-            EggColors colors = extractColors(texture, 5, 10);
+            String textureId = entity.getTexture();
+            if (textureId != null && !textureId.contains("/mob/char.png") && !textureId.isBlank()) {
+                BufferedImage texture = TextureHelper.getTexture(textureId);
 
-            ColorizationHandler.registerSpawnEggColorInt(
-                    item.spawnedEntity,
-                    colors.outerOverlay,
-                    colors.innerLayer,
-                    colors.innerLayerOverlay
-            );
-            
-            return true;
+                if (texture == null) {
+                    return false;
+                }
+
+                EggColors colors = extractColors(texture, 5, 10);
+
+                ColorizationHandler.registerSpawnEggColorInt(
+                        item.spawnedEntity,
+                        colors.outerOverlay,
+                        colors.innerLayer,
+                        colors.innerLayerOverlay
+                );
+
+                return true;
+            }
+        } catch (Exception ignored) {
+            return false;
         }
         
         return false;
